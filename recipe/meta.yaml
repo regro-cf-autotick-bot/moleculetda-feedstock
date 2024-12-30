@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/moleculetda-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/moleculetda-{{ version }}.tar.gz
   sha256: 43e2e2d21abbb1011421e98090013559c31658b350ce281ea874ec2a6c1dc1bb
 
 build:
   entry_points:
     - moleculetda = moleculetda.cli:main
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   noarch: python
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - scikit-learn
     - dionysus
     - numpy
@@ -39,6 +39,7 @@ test:
     - moleculetda --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/a1k12/molecule-tda
